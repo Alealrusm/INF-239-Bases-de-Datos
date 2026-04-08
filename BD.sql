@@ -4,7 +4,6 @@ USE ct_usm_postulaciones;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-
 CREATE TABLE IF NOT EXISTS ESTADO_POSTULACION_R (
     id_estado_postulacion INT NOT NULL,
     nombre_postulacion VARCHAR(255) NOT NULL,
@@ -103,7 +102,7 @@ CREATE TABLE IF NOT EXISTS ETAPA_CRONOGRAMA_R (
     plazo_semanas INT NOT NULL,
     entregable VARCHAR(255) NOT NULL,
     id_postulacion INT NOT NULL,
-    PRIMARY KEY (id_etapa),
+    PRIMARY KEY (id_etapa, id_postulacion),
     CONSTRAINT fk_etapa_postulacion FOREIGN KEY (id_postulacion) REFERENCES POSTULACION_R (id_postulacion)
 ) ENGINE = InnoDB;
 
@@ -112,7 +111,7 @@ CREATE TABLE IF NOT EXISTS DOCUMENTO_ADJUNTO_R (
     nombre_documento VARCHAR(255) NOT NULL,
     ruta_documento VARCHAR(255) NOT NULL,
     id_postulacion INT NOT NULL,
-    PRIMARY KEY (id_documento),
+    PRIMARY KEY (id_documento, id_postulacion),
     CONSTRAINT fk_doc_postulacion FOREIGN KEY (id_postulacion) REFERENCES POSTULACION_R (id_postulacion)
 ) ENGINE = InnoDB;
 
@@ -160,7 +159,7 @@ INSERT INTO POSTULACION_R (postulacion_n, codigo_interno, presupuesto_total, fec
 (108, 'INF-08', 2000000, '2026-03-05', 'Taller Programación', 'Enseñar', 'Python básico', '50 alumnos', '99.000.111-0', 2, 4, 8, 5, 3),
 (109, 'INF-09', 7200000, '2026-03-10', 'Drones Agrícolas', 'Mapeo', 'Vuelos térmicos', 'Mapa de suelos', '88.456.789-2', 1, 1, 9, 4, 4),
 (110, 'INF-10', 15000000, '2026-03-15', 'Data Center', 'Storage', 'Servidores nuevos', 'Alta disponibilidad', '76.123.456-1', 2, 2, 10, 3, 5),
-(111, 'INF-11', 17777, '2026-03-15', 'fi', 'q te importa', 'hola', 'queso', '77.777.777-7', 2, 3, 8, 5, 3);
+(111, 'INF-11', 17777, '2026-03-15', 'Choripán', 'Comida', 'Gastronomía', 'Promover cultura', '77.777.777-7', 2, 3, 8, 5, 3);
 
 INSERT INTO EMPRESA_EXTERNA_R (rut_empresa, nombre_empresa, nombre_representante, mail_representante, telefono_representante, convenio_usm, id_tamano) VALUES
 ('76.123.456-1', 'Tech Solutions Chile', 'Juan Pérez', 'jperez@tech.cl', '+56911111111', 1, 1),
@@ -169,21 +168,21 @@ INSERT INTO EMPRESA_EXTERNA_R (rut_empresa, nombre_empresa, nombre_representante
 ('90.111.222-3', 'Logística Valpo', 'Sofía Jara', 'sjara@log.cl', '+56944444444', 0, 1),
 ('76.555.444-5', 'Energía Solar SpA', 'Roberto Gómez', 'rgomez@solar.cl', '+56955555555', 1, 2),
 ('99.000.111-0', 'Consultores USM', 'Lucía Paz', 'lpaz@consul.cl', '+56966666666', 0, 3),
-('77.777.777-7', 'Choripan', 'Acza Riffo', 'Ariffo@usm.cl', '+569999999', 1, 3),
+('77.777.777-7', 'Choripán', 'Acza Riffo', 'Ariffo@usm.cl', '+569999999', 1, 3),
 ('99.999.999-9', 'Con', 'Nat Perez', 'Nperez@consul.cl', '+569843666', 0, 2);
 
 INSERT INTO ETAPA_CRONOGRAMA_R (id_etapa, nombre_etapa, plazo_semanas, entregable, id_postulacion) VALUES
 (1, 'Inicio', 22, 'Plan', 1), (2, 'Desarrollo', 18, 'Prototipo', 1), (3, 'Cierre', 2, 'Informe', 1),
-(4, 'Inicio', 42, 'Plan', 2), (5, 'Desarrollo', 7, 'Prototipo', 2), (6, 'Cierre', 1, 'Informe', 2),
-(7, 'Inicio', 2, 'Plan', 3), (8, 'Desarrollo', 5, 'Prototipo', 3), (9, 'Cierre', 2, 'Informe', 3),
-(10, 'Inicio', 12, 'Plan', 4), (11, 'Desarrollo', 12, 'Prototipo', 4), (12, 'Cierre', 1, 'Informe', 4),
-(13, 'Inicio', 24, 'Plan', 5), (14, 'Desarrollo', 3, 'Prototipo', 5), (15, 'Cierre', 2, 'Informe', 5),
-(16, 'Inicio', 2, 'Plan', 6), (17, 'Desarrollo', 8, 'Prototipo', 6), (18, 'Cierre', 3, 'Informe', 6),
-(19, 'Inicio', 6, 'Plan', 7), (20, 'Desarrollo', 8, 'Prototipo', 7), (21, 'Cierre', 2, 'Informe', 7),
-(22, 'Inicio', 7, 'Plan', 8), (23, 'Desarrollo', 9, 'Prototipo', 8), (24, 'Cierre', 9, 'Informe', 8),
-(25, 'Inicio', 21, 'Plan', 9), (26, 'Desarrollo', 10, 'Prototipo', 9), (27, 'Cierre', 8, 'Informe', 9),
-(28, 'Inicio', 5, 'Plan', 10), (29, 'Desarrollo', 8, 'Prototipo', 10), (30, 'Cierre', 4, 'Informe', 10),
-(31, 'Inicio', 9, 'Plan', 11), (32, 'Desarrollo', 9, 'Prototipo', 11), (33, 'Cierre', 2, 'Informe', 11);
+(1, 'Inicio', 42, 'Plan', 2), (2, 'Desarrollo', 7, 'Prototipo', 2),  (3, 'Cierre', 1, 'Informe', 2),
+(1, 'Inicio', 2, 'Plan', 3),  (2, 'Desarrollo', 5, 'Prototipo', 3),  (3, 'Cierre', 2, 'Informe', 3),
+(1, 'Inicio', 12, 'Plan', 4), (2, 'Desarrollo', 12, 'Prototipo', 4), (3, 'Cierre', 1, 'Informe', 4),
+(1, 'Inicio', 24, 'Plan', 5), (2, 'Desarrollo', 3, 'Prototipo', 5),  (3, 'Cierre', 2, 'Informe', 5),
+(1, 'Inicio', 2, 'Plan', 6),  (2, 'Desarrollo', 8, 'Prototipo', 6),  (3, 'Cierre', 3, 'Informe', 6),
+(1, 'Inicio', 6, 'Plan', 7),  (2, 'Desarrollo', 8, 'Prototipo', 7),  (3, 'Cierre', 2, 'Informe', 7),
+(1, 'Inicio', 7, 'Plan', 8),  (2, 'Desarrollo', 9, 'Prototipo', 8),  (3, 'Cierre', 9, 'Informe', 8),
+(1, 'Inicio', 21, 'Plan', 9), (2, 'Desarrollo', 10, 'Prototipo', 9), (3, 'Cierre', 8, 'Informe', 9),
+(1, 'Inicio', 5, 'Plan', 10), (2, 'Desarrollo', 8, 'Prototipo', 10), (3, 'Cierre', 4, 'Informe', 10),
+(1, 'Inicio', 9, 'Plan', 11), (2, 'Desarrollo', 9, 'Prototipo', 11), (3, 'Cierre', 2, 'Informe', 11);
 
 INSERT INTO PERSONA_R (rut_persona, nombre_persona, email_persona, telefono_persona, id_persona) VALUES
 -- Profesores Base
@@ -191,32 +190,43 @@ INSERT INTO PERSONA_R (rut_persona, nombre_persona, email_persona, telefono_pers
 ('12.654.321-K', 'Mg. Julia Castro', 'julia.castro@usm.cl', '+56977665544', 1),
 ('14.789.456-0', 'Dr. Alberto Ruiz', 'alberto.ruiz@usm.cl', '+56966554433', 1),
 -- Estudiantes Base
+
+-- Grupo 1
 ('20.455.123-1', 'Matías Ignacio Soto', 'matias.soto@usm.cl', '+569100101', 2),
 ('21.002.345-K', 'Valentina Paz Herrera', 'valentina.herrera@usm.cl', '+569100102', 2),
 ('19.888.765-4', 'Ian Villalobos', 'Ian.Villalobos@usm.cl', '+569100103', 2),
 ('20.123.987-5', 'Sofía Elena Jara', 'sofia.jara@usm.cl', '+569100104', 2),
 ('21.444.555-6', 'Diego Andrés Iturriaga', 'diego.iturriaga@usm.cl', '+569100105', 2),
+
+-- Grupo 2
 ('20.765.432-1', 'Catalina Rivas', 'catalina.rivas@usm.cl', '+569200101', 2),
 ('21.987.123-K', 'Nicolás Arancibia', 'nicolas.arancibia@usm.cl', '+569200102', 2),
 ('19.555.444-3', 'Beatriz Sáez', 'beatriz.saez@usm.cl', '+569200103', 2),
 ('20.111.222-9', 'Carlos Ibáñez', 'carlos.ibanez@usm.cl', '+569200104', 2),
 ('21.333.444-0', 'Elena Moreno', 'elena.moreno@usm.cl', '+569200105', 2),
+
+-- Grupo 3
 ('20.900.800-7', 'Joaquín Godoy', 'joaquin.godoy@usm.cl', '+569300101', 2),
 ('21.121.232-1', 'Fernanda Valdés', 'fernanda.valdes@usm.cl', '+569300102', 2),
 ('19.999.000-K', 'Gabriel Rozas', 'gabriel.rozas@usm.cl', '+569300103', 2),
 ('20.444.333-2', 'Martina Osorio', 'martina.osorio@usm.cl', '+569300104', 2),
 ('21.555.666-8', 'Benjamín Farías', 'benjamin.farias@usm.cl', '+569300105', 2),
+
+-- Grupo 4
 ('20.101.202-3', 'Sebastián Lagos', 'sebastian.lagos@usm.cl', '+569400101', 2),
 ('21.303.404-5', 'Camila Espinoza', 'camila.espinoza@usm.cl', '+569400102', 2),
 ('19.444.888-9', 'Felipe Vicencio', 'felipe.vicencio@usm.cl', '+569400103', 2),
 ('20.555.777-K', 'Paula Venegas', 'paula.venegas@usm.cl', '+569400104', 2),
 ('21.666.999-0', 'Ignacio Tello', 'ignacio.tello@usm.cl', '+569400105', 2),
+
+-- Grupo 5
 ('20.333.111-2', 'Raimundo Larraín', 'raimundo.larrain@usm.cl', '+569500101', 2),
 ('21.222.888-7', 'Constanza Pizarro', 'constanza.pizarro@usm.cl', '+569500102', 2),
 ('19.111.777-K', 'Jorge Donoso', 'jorge.donoso@usm.cl', '+569500103', 2),
 ('20.888.666-5', 'Francisca Silva', 'francisca.silva@usm.cl', '+569500104', 2),
 ('21.777.444-3', 'Lucas Mardones', 'lucas.mardones@usm.cl', '+569500105', 2),
-('21.847.444-6', 'Alvaro Leal', 'alealr@usm.cl', '+569500105', 2);
+
+('21.847.444-6', 'Álvaro Leal', 'alealr@usm.cl', '+569500105', 2);
 
 INSERT INTO INTEGRANTE_POSTULACION_R (funcion_integrante, departamento_o_area, id_sede, rut_persona, id_postulacion) VALUES
 -- Postulación 1: Redes IoT
@@ -278,6 +288,6 @@ INSERT INTO DOCUMENTO_ADJUNTO_R (id_documento, nombre_documento, ruta_documento,
 (5, 'solar.pdf', '/vol1/d5.pdf', 5), (6, 'salud_app.pdf', '/vol1/d6.pdf', 6),
 (7, 'audit_ciber.pdf', '/vol1/d7.pdf', 7), (8, 'python_curriculo.pdf', '/vol1/d8.pdf', 8),
 (9, 'dron_map.pdf', '/vol1/d9.pdf', 9), (10, 'dc_storage.pdf', '/vol1/d10.pdf', 10),
-(11, 'sdds', 'sdsd', 11);
+(11, 'comida.pdf', '/vol1/d11.pdf', 11);
 
 SET FOREIGN_KEY_CHECKS = 1;
