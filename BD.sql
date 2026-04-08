@@ -168,7 +168,7 @@ INSERT INTO EMPRESA_EXTERNA_R (rut_empresa, nombre_empresa, nombre_representante
 ('90.111.222-3', 'Logística Valpo', 'Sofía Jara', 'sjara@log.cl', '+56944444444', 0, 1),
 ('76.555.444-5', 'Energía Solar SpA', 'Roberto Gómez', 'rgomez@solar.cl', '+56955555555', 1, 2),
 ('99.000.111-0', 'Consultores USM', 'Lucía Paz', 'lpaz@consul.cl', '+56966666666', 0, 3),
-('77.777.777-7', 'Choripán', 'Acza Riffo', 'Ariffo@usm.cl', '+569999999', 1, 3),
+('77.777.777-7', 'Choripan', 'Acza Riffo', 'Ariffo@usm.cl', '+569999999', 1, 3),
 ('99.999.999-9', 'Con', 'Nat Perez', 'Nperez@consul.cl', '+569843666', 0, 2);
 
 INSERT INTO ETAPA_CRONOGRAMA_R (id_etapa, nombre_etapa, plazo_semanas, entregable, id_postulacion) VALUES
